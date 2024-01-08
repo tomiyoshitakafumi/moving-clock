@@ -9,14 +9,15 @@
 
 export function sum(array) { // 配列の要素の合計を計算する。
     let sum = 0; // sumの初期値を0にする。
-    for(let x of array) { // 配列をループし、各要素をxに代入する。
+    for (let x of array) { // 配列をループし、各要素をxに代入する。
         sum += x; // sumに各要素の値を加算する。
     } // ここでループが終わる。
     return sum; // sumを返す。
 }
+
 export function factorial(n) { // 階乗を計算する関数。
-   
-    if(n<0) {
+
+    if (n < 0) {
         throw new Error("負の値が設定されています");
     }
     let product = 1; // 1からスタート。
@@ -25,5 +26,5 @@ export function factorial(n) { // 階乗を計算する関数。
         n--; // n = n - 1 の短縮表記。
     } // ループの最後。
     return product; // 計算結果を返す
-    
+
 }
