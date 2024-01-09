@@ -98,23 +98,27 @@ export function padStart(str, targetLength, padString) {
     if (str.length >= targetLength) {
         return str;
     }
-    while (str.length === targetLength) {
-        // 足した時に文字数がオーバーした場合　オーバーした分padStringの末尾を結合しない
-        if (str.length + padString.length > targetLength) {
-            let diffLength = str.length + padString.length - targetLength;
-            while (diffLength--) {
-                str = padString[diffLength] + str;
-            }
-            return str;
-        } else {
-            str = padString + str;
-        }
+    if (padString === undefined) {
+        padString = " ";
     }
-    return str;
+
+    let diff = targetLength - str.length;
+
+    // 埋める文字
+    let fillString = "";
+
+    // 差分diff以上の(padStringの文字数×n個)を作る　
+    for (let i = 0; i * padString.length < diff; i++) {
+        fillString += padString;
+    }
+    // 過剰な末尾を削除
+    fillString = fillString.slice(0, diff);
+
+    return fillString + str;
 }
 
 export function trim(str) {
-    return "TODO";
+    // ^\s+は、文字列の先頭  \s+$は、文字列の末尾の空白を表す
+    str = str.replace(/^\s+|\s+$/g, "");
+    return str;
 }
-
-// console.log(substring("a3r3r", 2));
