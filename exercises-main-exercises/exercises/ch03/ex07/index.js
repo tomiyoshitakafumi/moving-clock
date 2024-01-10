@@ -6,9 +6,3 @@ export function equalArrays(a, b) {
     }
     return true; // すべて同じであれば、等しい。
 }
-
-let a = function () {
-    return 2;
-}
-
-console.log(equalArrays({}, {a}))
