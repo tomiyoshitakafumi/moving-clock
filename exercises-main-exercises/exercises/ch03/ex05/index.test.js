@@ -7,4 +7,7 @@ describe("math", () => {
     it("CR+LF -> LF", () => {
         expect(replaceCRLFtoLF("ああ\r\nあ")).toBe("ああ\nあ");
     });
+    it("変換しない", () => {
+        expect(replaceCRLFtoLF("あああ")).toBe("あああ");
+    });
 });
