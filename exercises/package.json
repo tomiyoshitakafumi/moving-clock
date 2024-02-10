@@ -1,17 +1,19 @@
 {
-  "name": "exercises",
+  "name": "preset-js",
   "version": "1.0.0",
-  "description": "js-exercises",
-  "main": "index.js",
+  "description": "",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand",
+    "lint": "eslint . --max-warnings=0",
+    "format": "prettier --write ."
   },
-  "type": "module",
   "author": "",
-  "license": "ISC",
-  "dependencies": {
+  "private": true,
+  "devDependencies": {
+    "eslint": "^8.51.0",
+    "eslint-config-prettier": "^9.0.0",
     "jest": "^29.7.0",
-    "node": "^21.2.0",
-    "test": "^3.3.0"
-  }
+    "prettier": "^3.0.3"
+  },
+  "type": "module"
 }
