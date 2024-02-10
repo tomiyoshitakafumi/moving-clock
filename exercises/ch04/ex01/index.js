@@ -13,8 +13,8 @@ export function mul(a, b) {
 }
 
 export function div(a, b) {
-    const denominator = b.realNum ^ 2 + b.imaginaryNum ^ 2;
-    if (denominator === 0) return throw new Error("エラー");
+    const denominator = b.realNum ** 2 + b.imaginaryNum ** 2;
+    if (denominator === 0) return new Error("エラー");
     return {
         realNum: (a.realNum * b.realNum + a.imaginaryNum * b.imaginaryNum) / denominator,
         imaginaryNum: (a.imaginaryNum * b.realNum - a.realNum * b.imaginaryNum) / denominator,
