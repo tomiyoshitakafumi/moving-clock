@@ -1,6 +1,7 @@
 export function add(a, b) {
     return {realNum: a.realNum + b.realNum, imaginaryNum: a.imaginaryNum + b.imaginaryNum}
 }
+
 export function sub(a, b) {
     return {realNum: a.realNum - b.realNum, imaginaryNum: a.imaginaryNum - b.imaginaryNum}
 }
