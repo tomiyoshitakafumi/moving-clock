@@ -1,66 +1,76 @@
-function changeEscapeSquence(str) {
+export function changeEscapeSquence(str) {
     if (str === null) {
-        return "\0";
+        return "\\0";
     }
-
+    let result = '';
     for (let i = 0; i < str.length; i++) {
-        const charUnicode = char.charCodeAt(i);
-        if (charUnicode === "\u0000") {
-            return "\\0";
-        } else if (charUnicode === "\u0008") {
-            return "\\b";
-        } else if (charUnicode === "\u0009") {
-            return "\\t";
-        } else if (charUnicode === "\u000A") {
-            return "\\n";
-        } else if (charUnicode === "\u000B") {
-            return "\\v";
-        } else if (charUnicode === "\u000C") {
-            return "\\f";
-        } else if (charUnicode === "\u000D") {
-            return "\\r";
-        } else if (charUnicode === "\u00022") {
-            return '\\"';
-        } else if (charUnicode === "\u00027") {
-            return "\\'";
-        } else if (charUnicode === "\u005C") {
-            return "\\\\";
+        // 16進数のunicodeを取得
+        const charUnicode = str.charCodeAt(i).toString(16).toUpperCase();
+        if (charUnicode === "8") {
+            result += "\\b";
+        } else if (charUnicode === "9") {
+            result += "\\t";
+        } else if (charUnicode === "A") {
+            result += "\\n";
+        } else if (charUnicode === "B") {
+            result += "\\v";
+        } else if (charUnicode === "C") {
+            result += "\\f";
+        } else if (charUnicode === "D") {
+            result += "\\r";
+        } else if (charUnicode === "22") {
+            result += '\\"';
+        } else if (charUnicode === "27") {
+            result += "\\'";
+        } else if (charUnicode === "5C") {
+            result += "\\\\";
+        } else {
+            result += str[i];
         }
     }
-    return new Error();
+    return result;
 }
 
-function changeEscapeSquence2(str) {
+export function changeEscapeSquence2(str) {
     if (str === null) {
-        return "\0";
+        return "\\0";
     }
-
+    let result = '';
     for (let i = 0; i < str.length; i++) {
-        const charUnicode = char.charCodeAt(i);
+        // 16進数のunicodeを取得
+        const charUnicode = str.charCodeAt(i).toString(16).toUpperCase();
         switch (charUnicode) {
-            case ("\u0000"):
-                return "\\0";
-            case ("\u0008"):
-                return "\\b";
-            case ("\u0009"):
-                return "\\t";
-            case ("\u000A"):
-                return "\\n";
-            case ("\u000B"):
-                return "\\v";
-            case ("\u000C"):
-                return "\\f";
-            case ("\u000D"):
-                return "\\r";
-            case ("\u0022"):
-                return '\\"';
-            case ("\u0027"):
-                return "\\'";
-            case ("\u005C"):
-                return "\\\\";
+            case ("8") :
+                result += "\\b";
+                break;
+            case ("9") :
+                result += "\\t";
+                break;
+            case ("A"):
+                result += "\\n";
+                break;
+            case ("B") :
+                result += "\\v";
+                break;
+            case ("C"):
+                result += "\\f";
+                break;
+            case("D") :
+                result += "\\r";
+                break;
+            case  ("22"):
+                result += '\\"';
+                break;
+            case ("27") :
+                result += "\\'";
+                break;
+            case("5C"):
+                result += "\\\\";
+                break;
             default:
+                result += str[i];
                 break;
         }
     }
-    return new Error();
+    return result;
 }
