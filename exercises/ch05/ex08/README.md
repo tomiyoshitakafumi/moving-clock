@@ -1,0 +1,1 @@
+ex07と同じようにtryブロック内でbreakｂん、continue文、return文が実行されたとしてもfinallyは必ず実行さる。そのためcontinueが最期に実行されるためforループが5回実行される。

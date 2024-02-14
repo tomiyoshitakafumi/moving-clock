@@ -1,0 +1,1 @@
+tryブロック内でbreakｂん、continue文、return文が実行されたとしてもfinallyは必ず実行されるためfalseが返る事が予想される
