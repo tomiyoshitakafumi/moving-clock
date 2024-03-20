@@ -3,7 +3,7 @@
     let b = Object.getOwnPropertySymbols(obj);
     let c = [];
     
-    while (Object.getPrototypeOf(obj) !== null) {
+    while (Object.getPrototypeOf(obj)) {
         c = [...c, ...Object.keys(obj)];
         obj = Object.getPrototypeOf(obj);
     }
