@@ -24,6 +24,7 @@ describe("6.9", () => {
       return {x: this.x, y: this.y, sum: this.sum()};
     }
 
+    
     obj.x = 1;
     obj.y = 2;
     expect(JSON.stringify(obj)).toBe(`{"x":1,"y":2,"sum":3}`);

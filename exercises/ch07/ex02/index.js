@@ -22,3 +22,30 @@ function sumOfEvensIsLargerThan42(array) {
     });
     return result;
 }
+
+/**
+ * fizzbuzzの文字列をコンソール出力します。
+ * @param {number} n 自然数
+ */
+function fizzbuzz(n) {
+    const nArry = new Array(n).fill(0).map((_, index) => {
+        return index + 1;
+    });
+    const fizzArry = nArry.filter((value) => value % 3 === 0);
+    const buzzArry = nArry.filter((value) => value % 5 === 0);
+    const fizzbuzzArry = nArry.filter((value) => value % 15 === 0);
+    buzzArry.forEach((value) => {
+        nArry[value - 1] = "Buzz"
+    });
+    fizzArry.forEach((value) => {
+        nArry[value - 1] = "Fizz";
+    });
+    fizzbuzzArry.forEach((value) => {
+        // valueから1引いた値がindex
+        nArry[value - 1] = "FizzBuzz";
+    });
+    nArry.forEach((value) => {
+        console.log(value);
+    })
+}
+ 

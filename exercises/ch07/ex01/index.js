@@ -10,6 +10,7 @@
     return result;
 }
 
+// 乗算じゃなくて減算をやっちゃってる...
 export function minusmatrix(x, y) {
     let result = [[], []];
     for (let i = 0; i < x.length; i++) {

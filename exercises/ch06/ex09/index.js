@@ -1,5 +1,5 @@
 ﻿export function restrict(target, template) {
-    // hasownpropaty はハッシュになっている
+
     let props = Object.keys(template);
     for (const key in target) {
         if (!props.find(x => x === key)) {
@@ -12,7 +12,7 @@
 // [{},{}]
 export function substract(target, ...sources) {
     let props = [];
-
+   
     // 全てのプロパティ列挙
     // let props = sources.reduce((x, y) => x.concat(Object.keys(y)), []);
     sources.forEach(s => props = props.concat(Object.keys(s)));

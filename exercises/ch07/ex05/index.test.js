@@ -4,7 +4,7 @@ describe("7.5", () => {
     const seq = [1, 2, 3, 4, 5];
     test("pop", () => {
         expect(pop(seq)).toEqual([1, 2, 3, 4]);
-        
+        //毎回破壊的変更がないか見た方がよい
     });
 
     test("push", () => {
