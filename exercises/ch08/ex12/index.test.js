@@ -27,6 +27,6 @@ describe("f", () => {
   });
 
   it("returns function with multi line", () => {
-    expect(f("{ const result = $1 + $2;\n return result; }")(1, 2)).toBe(3);
+    expect(f("{ const  $1 + $2;\n return '1'; }")(1, 2)).toBe(3);
   });
 });
