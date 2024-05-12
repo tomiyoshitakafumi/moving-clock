@@ -1,0 +1,4 @@
+﻿AMD（Asynchronous Module Definition）
+ブラウザ向けのモジュールシステム(ESMが出る前の昔のモジュールシステム)
+UMD(Universal Module Definition)
+AMDとCJSをサポートしたサーバーでもブラウザでも使えるモジュールシステム
