@@ -15,4 +15,5 @@
     // 記号19文字 → !#$%&'*+-/=?^_`{|}~.
     const wordChar = /^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-]+@[a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-]+$/u;
     return strCountLimit.test(str) && !twoDots.test(str) && !firstEndDots.test(str) && wordChar.test(str);
+    //正規表現きらいになりそう(n回目)
 }
