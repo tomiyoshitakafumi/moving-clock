@@ -1,0 +1,8 @@
+﻿jQueryのDeferredはPromiseと同じように非同期を扱える。
+DefrredはPromiseを内包しているためDeferredオブジェクトのresolve、fejectメソッドを操作することでPromiseの処理の結果を決めることができる
+jQeruyのthenのコールバックはタスクの一部で即座に実行されるがPromiseのthenはマイクロタスクキューに入ると若干の機能の際がある。
+しかしthenメソッドやwhenメソッドもDeferredにあるが現在Promsieに同じように実装されているメソッドがあるが最新のESに対応しないアプリケーションでは活用することができるかもしれない
+(多分)
+
+[参考](https://beck23.hatenablog.com/entry/2014/11/08/022842)
+[参考](https://qiita.com/fakefurcoronet/items/cb2d2eba1a2e39f6643d)
