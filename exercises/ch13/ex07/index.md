@@ -12,7 +12,7 @@ async function h1() {
   }
 }
 予想: A, B, C
-
+結果:A, B, C
 function h2() {
   // NOTE: h3 との比較用
   new Promise(() => {
@@ -20,7 +20,7 @@ function h2() {
   }).catch((e) => log(e.message));
 }
 予想:X
-
+結果:X
 
 function h3() {
   // NOTE: new Promise の引数が async function の場合、例外はどう扱われるだろう
@@ -29,6 +29,18 @@ function h3() {
   }).catch((e) => log(e.message));
 }
 予想:X (関数がPromiseになるだけ)
+結果 Errorになりキャッチができなかった
+asyncは以下のようにあらわされるためrejectされずresolve内部でエラーになる?
+// function f(x) {
+//     return new Promise(function(resolve, reject) {
+//         try {
+//             resolve((function(x) { /* 関数本体 */ })(x));
+//         }
+//         catch(e) {
+//             reject(e);
+//         }
+//     });
+// }
 
 async function h4() {
   // NOTE: 2つの例外は両方 catch できるか？
@@ -56,5 +68,5 @@ async function h4() {
 //         }
 //     });
 // }
-結果:
+結果:XのエラーはキャッチされるがYのエラーはキャッチされない
 ```
