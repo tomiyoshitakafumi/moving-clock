@@ -5,22 +5,22 @@ export async function fetchSumOfFileSizes(path, callback) {
     try {
         let files = await fsPromises.readdir(path);
 
-        let total = 0;
         const rest = [...files];
 
-        async function iter() {
-            if (rest.length === 0) {
-                callback(null, total);
-                return;
-            }
-
-            const next = rest.pop();
-            let stats = await fsPromises.stat(join(path, next));
-            total += stats.size;
-            return iter();
+        if (rest.length === 0) {
+            callback(null, 0);
+            return;
         }
 
-        return iter();
+        let promises = rest.map(next => fsPromises.stat(join(path, next)));
+        let state = await Promise.all(promises);
+        let total = 0;
+        for (let i = 0; i < state.length; i++) {
+            total += state[i].size;
+        }
+        callback(null, total)
+        return total;
+
     } catch (err) {
         callback(err);
     }

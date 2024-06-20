@@ -3,15 +3,15 @@ import { readdir, stat } from './index.js';
 describe('', () => {
     it('readdir', () => {
         return readdir('./ch13/ex03').then(files => {
-            expect(files[0]).toEqual("a")
-            return readdir('./ch13/ex03/a')
+            expect(files[0]).toEqual("a");
+            return readdir('./ch13/ex03/a');
         }).then(files => expect(files[0]).toEqual("b"));
     });
 
     it('stat', () => {
         stat('./ch13/ex03/a').then((a) => {
-            console.log(a)
-            return stat('./ch13/ex03/a/b')
+            console.log(a);
+            return stat('./ch13/ex03/a/b');
         }).then(b => console.log(b));
         stat('./ch13/ex03/a').then(defile => {
             //nodeで実行時とテストで実行時のstatが異なってうまくテストができなかった
