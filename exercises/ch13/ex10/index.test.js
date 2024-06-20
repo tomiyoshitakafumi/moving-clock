@@ -4,7 +4,7 @@ describe('fetchSumOfFileSizes', () => {
     it('正常', () => {
         fetchSumOfFileSizes('./ch13/ex08/sample', (err, totalsize) => {
             expect(totalsize).toEqual(32);
-            expect(err).toBeNull()
+            expect(err).toBeNull();
         });
     });
     it('filePathが間違っているとき', () => {
@@ -14,7 +14,7 @@ describe('fetchSumOfFileSizes', () => {
     });
     it('ファイルがない時', () => {
         fetchSumOfFileSizes('./ch13/ex08/noFile', (err, totalsize) => {
-            expect(err).toBeNull()
+            expect(err).toBeNull();
             expect(totalsize).toEqual(0);
         });
     });
