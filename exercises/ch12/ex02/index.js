@@ -9,6 +9,8 @@
             [x, y] = [y, x + y];
             return {value: result};
         }
+        //returnとthworwはあってもいい
+        //厳密にやるならreturnが呼ばれたら終了フラグでdoneをtrueにした方が安全
     }
 }
 

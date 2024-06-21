@@ -13,13 +13,7 @@ export function* walk(rootPath) {
             yield* walk(path.join(rootPath, file));
         }
     } else {
+        //初めがファイルだったら、windowsだとダメ
         yield {path: rootPath, isDirectory: false};
     }
 }
-
-//
-// let a = walk('./test');
-// console.log(a.next().value);
-// console.log(a.next().value);
-// console.log(a.next().value);
-// console.log(a.next().value);

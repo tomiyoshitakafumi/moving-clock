@@ -1,4 +1,5 @@
-﻿function* readLines(filePath) {
+﻿//動いていません
+function* readLines(filePath) {
 
     const fs = require('fs');
     let fd = fs.openSync(filePath, "r");
@@ -33,3 +34,33 @@
 
 let a = readLines('./test.txt');
 console.log(a.next().value);
+
+
+// import fs from 'fs';
+//
+// function readData(filename) {
+//     let fd = fs.openSync(filename);
+//     try {
+// // ファイルのヘッダを読み出す。
+//         let header = Buffer.alloc(12); // 12バイトのバッファ。
+//         fs.readSync(fd, header, 0, 12, 0);
+// // ファイルのマジックナンバーを検証する。
+//         let magic = header.readInt32LE(0);
+//         // if (magic !== 0x31bfbbef) {
+//         //     throw new Error("File is of wrong type");
+//         // }
+// // データのオフセットと長さをヘッダから取得する。
+//         let offset = header.readInt32LE(4);
+//         let length = header.readInt32LE(8);
+// // そして、ファイルからそのデータのバイト列を読み出す。
+//         let data = Buffer.alloc(12);
+//         fs.readSync(fd, data, 0, 2, 4);
+//         return data;
+//     } finally {
+// // 上記のコードで例外がスローされた場合でも、ファイルを必ずクローズする。
+//         fs.closeSync(fd);
+//     }
+// }
+//
+// //PE形式　https://learn.microsoft.com/ja-jp/windows/win32/debug/pe-format
+// console.log(readData('./test.txt').toString());

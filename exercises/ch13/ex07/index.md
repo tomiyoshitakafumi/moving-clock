@@ -31,6 +31,7 @@ function h3() {
 予想:X (関数がPromiseになるだけ)
 結果 Errorになりキャッチができなかった
 asyncは以下のようにあらわされるためrejectされずresolve内部でエラーになる?
+→上のプロミスは別タスクなのでエラーがキャッチされない
 // function f(x) {
 //     return new Promise(function(resolve, reject) {
 //         try {

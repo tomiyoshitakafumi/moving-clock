@@ -71,6 +71,7 @@ d.next().done;//counterGen: finally true
 
 // return() や throw() がどのようなときに呼ばれるのか確認する
 //counterIterのreturn()やthrow()は呼ばれない?
+//for分の中でbreakやreturn(value)を呼ぶ
 
 // ジェネレータ関数の中身がどのタイミングで初めて実行されるか確認する
 //counterGenの中身はnext()が呼ばれるまで実行されない

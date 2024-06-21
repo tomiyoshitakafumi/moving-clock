@@ -4,5 +4,7 @@ jQeruyのthenのコールバックはタスクの一部で即座に実行され�
 しかしthenメソッドやwhenメソッドもDeferredにあるが現在Promsieに同じように実装されているメソッドがあるが最新のESに対応しないアプリケーションでは活用することができるかもしれない
 (多分)
 
+jQueryのPromsieは先に生まれてES6のPromiseは別物
+
 [参考](https://beck23.hatenablog.com/entry/2014/11/08/022842)
 [参考](https://qiita.com/fakefurcoronet/items/cb2d2eba1a2e39f6643d)

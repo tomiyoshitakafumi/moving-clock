@@ -79,20 +79,29 @@ wait1().then(() => {
 })
 が先に評価されたため
 let a = wait2().then(() => {.....})
+2秒後にthen内部がマイクロタスクに追加される。
 let b = a.then( ....)←値の評価が走る
 let c = b.then((v) => log(v));
- wait2よりwait1のほうが短いためlogBが先に表示される
+ wait2よりwait1のほうがマイクロタスクキューに先に入るlogBが先に表示される
 図解:
     wait2
     |-------|
-            wait1
-             |----|
-                  logB
-                  |-|
-                     logA
-                     |-| 
-                    　   log40
-               　　　     |-|
+            // wait1　　間違い
+            // |----|
+            //      logA
+            //      |-|
+            //          logB
+            //          |-|
+            //             log40
+            //             |-|
+    wait1
+    |----|
+         logB
+         |-|
+             logA
+             |-| 
+            　   log40
+       　　　     |-|
 
 
 
@@ -104,20 +113,20 @@ function f6() {
     p.then(() => wait2()).then(logC);
 }
 補足:
-wait1 wait2がほぼ同時に実行
+wait1 wait2がほぼ同時に実行 マイクロタスクキューの追加順番としてlogA→wait1→wait2の順番に追加されるためlogAが長いとwait1 wait2は追加されない
 図解:
     wait1
     |----|
          logA
          |-|
-            wait1
-            |----|
-                 logB
-                 |-|
-            wait2
-            |--------|
-                     logC
-                     |-|
+         wait1
+         |----|
+              logB
+              |-|
+         wait2
+         |--------|
+                  logC
+                  |-|
 
 
 
@@ -244,3 +253,5 @@ catchはできなかった。
     |----|
 ``` 
 
+setTimeoutのタスクはPromiseのタスクは違うのでex13では完了したことになってエラーは取れない(補足できない)
+setTimes reject使うしかない
