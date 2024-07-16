@@ -1,0 +1,1 @@
+﻿nodeでhttp-serverを起動してlocalhost:8080にアクセスすると、index.htmlが読み込まれconsole.logに出力させる。
