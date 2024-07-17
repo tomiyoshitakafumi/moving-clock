@@ -1,0 +1,7 @@
+﻿# React
+
+ReactはデフォルトでHTMLをエスケープ処理を行っており、出力時にXSS攻撃を防いでいる。
+問題点としてdangerouslySetInnerHTML属性を使用すると、Reactの自動エスケープ機能をバイパスし、生のHTMLを挿入できるためXSS攻撃ができる可能性がある
+dangerouslySetInnerHTMLを使用してHTMLを埋め込む場合はライブラリなどを使って適切にサニタイズする。(基本的に使わない)
+hrefやstyle属性にも入れる値によってはXSS攻撃が成立する。
+href=`javascript: alert('hack')

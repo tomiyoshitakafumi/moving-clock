@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>警告</title>
+    <script>
+        async function showWarning() {
+            console.log(navigator.keyboard);
+            let a = await navigator.mediaDevices.enumerateDevices();
+            const adapter = await navigator.gpu.requestAdapter();
+            navigator.geolocation.getCurrentPosition(x => alert(`経度` + x.coords.latitude + `緯度` + x.coords.longitude));
+            alert(`警告！警告！警告！情報が漏洩しています GPU maxBindGroups: ${adapter.limits.maxBindGroups} GPu maxComputeWorkgroupSizeX ${adapter.limits.maxComputeWorkgroupSizeX} ${navigator.hardwareConcurrency}core ${navigator.deviceMemory}GB ${navigator.ink} ${navigator.keyboard} 言語 ${navigator.language} 同時対応タッチ数${navigator.maxTouchPoints}  audioinput${a[0].deviceId} audiooutput${a[1].deviceId} videoinput${a[2].deviceId}`);
+        }
+
+        showWarning();
+    </script>
+</head>
+<body>
+$END$
+</body>
+</html>
