@@ -1,0 +1,48 @@
+﻿<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Product List</title>
+    <script type="module">
+        document
+            .getElementById("category-select")
+            .addEventListener("change", (e) => {
+                const selectedCategory = e.target.value;
+                const products = document.querySelectorAll("#productList li");
+                products.forEach((product) => {
+                    // ここにコードを書いて完成させる
+                    product.hidden = true;
+
+                    if (selectedCategory === "all") {
+                        product.hidden = false;
+                        return;
+                    }
+                    if (selectedCategory === "food" && product.dataset.category === "food") {
+                        product.hidden = false;
+                        return;
+                    }
+                    if (selectedCategory === "stationery" && product.dataset.category === "stationery") {
+                        product.hidden = false;
+                    }
+                });
+            });
+    </script>
+</head>
+<body>
+<select data-testid="select" id="category-select">
+    <option value="all">すべて</option>
+    <option value="food">食品</option>
+    <option value="stationery">文房具</option>
+</select>
+<ul id="productList">
+    <li data-category="food" data-testid="food1">お菓子 - ¥1000</li>
+    <li data-category="stationery" data-testid="stationery1">
+        消しゴム - ¥200
+    </li>
+    <li data-category="stationery" data-testid="stationery2">
+        ものさし - ¥300
+    </li>
+</ul>
+</body>
+</html>

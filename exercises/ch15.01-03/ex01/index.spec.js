@@ -4,6 +4,12 @@ import { expect, test } from "@playwright/test";
  * @param {import("@playwright/test").Page} page
  * @param {string} todo
  */
+
+// このように拡張を除外すれば行けると思ったがダメ
+// let browser = await chromium.launch({
+//   // headless: false,
+//   ignoreDefaultArgs: ['--disable-extensions'],
+// });
 async function addToDo(page, todo) {
   await page.getByRole("textbox").fill(todo);
   await page.getByRole("button", { name: "Add" }).click();
