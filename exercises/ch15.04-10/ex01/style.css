@@ -1,3 +1,90 @@
+/*モダンでなポップな感じにお願いしますとChatGPTに聞いた*/
+
+/*背景を白にしてフォントを設定センタリングしている */
+body {
+  background-color: #f9f9f9;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #333;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+/*shadowで影をつけ立体敵に見えるように　丸みをつけて柔らかい印象にするように　幅を300px*/
+form {
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  width: 300px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/*親の要素に対して80%の幅*/
+input[type="text"] {
+  width: 80%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+/*ボタンはピンクに丸みをつけている またボタンにカーソルを当てると矢印が手になり押せることが視覚的にわかる*/
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ff4081;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+/*ボタンにhoverすると色を変化させてhoverされたことが視覚的にわかるように*/
+button:hover {
+  background-color: #e73370;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 20px auto;
+  width: 300px;
+}
+
+li {
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .completed {
   text-decoration: line-through;
+  color: #999;
+}
+
+.view {
+  display: flex;
+  align-items: center;
+}
+
+.toggle {
+  margin-right: 10px;
+}
+
+.destroy {
+  background-color: #ff4081;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.destroy:hover {
+  background-color: #e73370;
 }
