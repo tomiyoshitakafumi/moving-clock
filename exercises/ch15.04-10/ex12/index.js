@@ -51,7 +51,7 @@ document.querySelector("#all").addEventListener("click", (e) => {
 
 document.querySelector("#active").addEventListener("click", (e) => {
   e.preventDefault();
-  window.history.pushState(null, "", "/ch15.04-10/ex12/active");
+  window.history.pushState(null, "", "/ch15.04-10/ex12/#active");
   renderTodos(/* TODO: ここは自分で考えてみて下さい (ex11 の答えに近いので) */ todos.filter(todo => !todo.completed));
 });
 
