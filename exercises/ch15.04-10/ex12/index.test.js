@@ -1,30 +1,47 @@
 ﻿import { expect, test } from '@playwright/test';
-import { chromium } from 'playwright';
 
-test.describe('Product List Filtering', () => {
+test.describe('Todo List E2E Tests', () => {
 
-    test.beforeEach(async () => {
-        let browser = await chromium.launch({
-            // headless: false,
-            ignoreDefaultArgs: ['--disable-extensions'],
-        });
-        let page = await browser.newPage();
-        await page.goto('http://localhost:8080/ch15.01-03/ex14/index.html');
+    test.beforeEach(async ({ page }) => {
+        await page.goto('http://localhost:8080/ch15.04-10/ex12/index.html');
+        await page.fill('#new-todo', 'aa');
+        await page.click('text=Add');
+        await page.fill('#new-todo', 'bb');
+        await page.click('text=Add');
+        await page.fill('#new-todo', 'cc');
+        await page.click('text=Add');
+        await page.locator('.toggle').nth(2).click();
+    });
+    test('All', async ({page}) => {
+        await page.click('#all');
+        const contentLocators = await page.locator('.content').all();
+        await expect(contentLocators[0]).toHaveText('aa');
+        await expect(contentLocators[1]).toHaveText('bb');
+        await expect(contentLocators[2]).toHaveText('cc');
+        await expect(contentLocators).toHaveLength(3);
+    });
+    
+    test('Acive', async ({page}) => {
+        await page.click('#active');
+        const contentLocators = await page.locator('.content').all();
+        await expect(contentLocators[0]).toHaveText('aa');
+        await expect(contentLocators[1]).toHaveText('bb');
+        //表示されてないと検知ずるため
+        await expect(contentLocators).toHaveLength(2);
     });
 
-    test('"all"', async ({page}) => {
-        await page.selectOption('[data-testid="select"]', 'all');
-        await expect(page.locator('#productList li')).toHaveCount(3);
+    test('completed', async ({page}) => {
+        await page.click('#completed');
+        const contentLocators = await page.locator('.content').all();
+        await expect(contentLocators[0]).toHaveText('cc');
+        await expect(contentLocators).toHaveLength(1);
     });
-
-    test(' "food"', async ({page}) => {
-        await page.selectOption('[data-testid="select"]', 'food');
-        await expect(page.locator('[data-testid="food1"]')).toBeVisible();
-    });
-
-    test(' "stationery"', async ({page}) => {
-        await page.selectOption('#category-select', 'stationery');
-        await expect(page.locator('[data-testid="stationery1"]')).toBeVisible();
-        await expect(page.locator('[data-testid="stationery2"]')).toBeVisible();
+    test('delete', async ({page}) => {
+        await page.click('.destroy');
+        await page.click('#all');
+        const contentLocators = await page.locator('.content').all();
+        await expect(contentLocators[0]).toHaveText('bb');
+        await expect(contentLocators[1]).toHaveText('cc');
+        await expect(contentLocators).toHaveLength(2);
     });
 });
