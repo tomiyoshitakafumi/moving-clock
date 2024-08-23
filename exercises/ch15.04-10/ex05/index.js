@@ -20,6 +20,7 @@ customElements.define("inline-circle", class InlineCircle extends HTMLElement {
                 this.style.backgroundColor = newValue;
                 break;
             // 新たにbordercoloerを追加(なぜかborderが上書きできなかった) ここに this.style.backgroundColor を設定したら動いたので分岐には入っていそう
+                // 答え　connectedCallback()で上書きされている
             case "bordercolor":
                 this.style.border = `solid ${newValue} 1px`;
                 break;

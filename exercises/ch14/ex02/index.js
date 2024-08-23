@@ -8,9 +8,9 @@ export class MyArrayLike {
   //   }
   //   this[i] = 3;
   // }
-  constructor(length) {
-    this.length = length;
-  }
+  // constructor(length) {
+  //   this.length = length;
+  // }
 
 }
 
@@ -25,4 +25,8 @@ export class MyArray extends Array {
   }
 
   //map　sliceなどの新しい配列を返す物はnew this.constructor[Symbol.species]()が呼ばれる
+  // mapとか呼ぶときにnew MyArrayLike()が呼ばれるのでconstructorにlengthが入る
+  // const a = new MyArray(3);
+  // a[0]=0;... 
+  
 }

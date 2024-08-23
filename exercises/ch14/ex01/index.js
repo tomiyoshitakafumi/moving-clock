@@ -18,7 +18,6 @@ export function writableAndUnconfigurableObj() {
 export function nestedUnwritableObj() {
     let o = {c: {d: {e: 3}}};
     return deepFreeze(o);
-
 }
 
 //深い凍結

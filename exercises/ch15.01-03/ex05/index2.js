@@ -5,3 +5,4 @@
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("1000").innerHTML = "Hello";
 })
+//結論 deferにする　loadは関係ないのでやらない　

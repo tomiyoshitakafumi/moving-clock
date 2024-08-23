@@ -233,6 +233,7 @@
     }
     // 追加
     target.scrollIntoView({ behavior: "smooth" });
+    //windows.scrolltoでもok
     });
   }
 
