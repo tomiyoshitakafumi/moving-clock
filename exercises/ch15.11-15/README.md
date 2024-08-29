@@ -194,7 +194,7 @@ localStorage と sessionStorage それぞれに保存されたデータの有効
 
 CSP には様々なディレクティブが存在するが、その中の `script-src` ディレクティブによって有効な JavaScript のソースを指定することができる。
 
-この問題においても、サーバを `node ex01/server.js` のコマンドで実行し、http://localhost:3000/ にアクセスすると `contents/index.html` のコンテンツをロードすることができる。
+この問題においても、サーバを `node ex07/server.js` のコマンドで実行し、http://localhost:3000/ にアクセスすると `contents/index.html` のコンテンツをロードすることができる。
 
 このコンテンツをブラウザで表示すると、"RICOH", "Hello", "World" の 3 つのアラートを表示するようになっている。
 `server.js` の以下の箇所を変更して CSP ヘッダを設定することで、"RICOH" および "Hello" のアラートは表示されるが、 "World" のアラートは表示されないようにしなさい。
@@ -238,7 +238,7 @@ node ex08/server.js
    console.log(response); // -> "Hello, World"
    ```
 
-2. 1.とは別の WebSocket 接続で、WebScoket サーバから転送されたリクエストメッセージを受信してレスポンスを返す実装をしなさい。
+2. 1.とは別の WebSocket 接続で、WebSocket サーバから転送されたリクエストメッセージを受信してレスポンスを返す実装をしなさい。
 
    - レスポンス本文は、 リクエスト本文の先頭に `Hello, ` を付加したものを返すこと。
    - どのリクエストに対するレスポンスか、リクエストした側で判別できるようにすること。
