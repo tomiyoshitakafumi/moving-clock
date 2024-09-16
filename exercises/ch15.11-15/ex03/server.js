@@ -244,6 +244,15 @@ function cookieAuthzMiddleware(_url, req, res, params) {
 function corsMiddleware(_url, _req, res) {
   // TODO: CORS に必要なヘッダを複数設定する
   res.setHeader("TODO", "TODO");
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  if (_req.method === "OPTIONS") {
+    res.writeHead(204);
+    res.end();
+    return false;
+  }
   return true;
 }
 
@@ -348,7 +357,8 @@ async function main() {
     .createServer(async function (req, res) {
       await routes(
         // TODO: この行のコメントを外す
-        // ["OPTIONS", "/api/*", nopHandler, cors],
+        //  OPTIONS メソッドを使ってプリフライトリクエストを送信します
+        ["OPTIONS", "/api/*", nopHandler, cors],
         ["GET", "/api/tasks", listTasksHandler, authz, cors],
         ["GET", "/api/tasks/{id}", getTaskHandler, authz, cors],
         ["POST", "/api/tasks", createTaskHandler, authz, cors],

@@ -1,14 +1,24 @@
 const form = document.querySelector("#new-todo-form");
 const list = document.querySelector("#todo-list");
 const input = document.querySelector("#new-todo");
-
+console.log(document.cookie);
 document.addEventListener("DOMContentLoaded", async () => {
   // TODO: ここで API を呼び出してタスク一覧を取得し、
   // 成功したら取得したタスクを appendToDoItem で ToDo リストの要素として追加しなさい
+  const response = await fetch("/api/tasks");
+  const task = await response.json();
+  if (response.status === 200) {
+    for (const item of task.items) {
+      appendToDoItem(item);
+    }
+  } else {
+    alert(`${response.status}: ${task.message}`);
+  }
 });
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   // TODO: ここで form のイベントのキャンセルを実施しなさい (なぜでしょう？)
+  e.preventDefault(); // デフォルトでページがリロードされてしまうのでイベント本来の動作を止める
 
   // 両端からホワイトスペースを取り除いた文字列を取得する
   const todo = input.value.trim();
@@ -21,6 +31,17 @@ form.addEventListener("submit", (e) => {
 
   // TODO: ここで API を呼び出して新しいタスクを作成し
   // 成功したら作成したタスクを appendToDoElement で ToDo リストの要素として追加しなさい
+  const response = await fetch("/api/tasks", {
+    method: "POST",
+    body: JSON.stringify({name: todo}),
+  });
+  const task = await response.json();
+
+  if (response.status === 201) {
+    appendToDoItem(task);
+  } else {
+    alert(`${response.status}: ${task.message}`);
+  }
 });
 
 // API から取得したタスクオブジェクトを受け取って、ToDo リストの要素を追加する
@@ -35,11 +56,45 @@ function appendToDoItem(task) {
   const toggle = document.createElement("input");
   // TODO: toggle が変化 (change) した際に API を呼び出してタスクの状態を更新し
   // 成功したら label.style.textDecorationLine を変更しなさい
-
+  toggle.type = "checkbox";
+  toggle.addEventListener("change", async () => {
+    console.log(task.status);
+    const response = await fetch(`/api/tasks/${task.id}`, {
+      method: "PATCH",
+      //activeはcompletedに、completedはactiveに変更
+      body: JSON.stringify({name:task.name, status: task.status === "active" ? "completed" : "active"}),
+    });
+    console.log(task.status);
+    const task2 = await response.json();
+    if (response.status === 200) {
+      label.style.textDecorationLine = task2.status === "active" ? "none" : "line-through";
+      task.status = task2.status;
+      console.log(task.status);
+    } else {
+      alert(`${response.status}: ${response.message}`);
+    }
+  });
+  
   const destroy = document.createElement("button");
   // TODO: destroy がクリック (click) された場合に API を呼び出してタスク を削除し
   // 成功したら elem を削除しなさい
-
+  destroy.textContent = "❌";
+    destroy.addEventListener("click", async () => {
+        const response = await fetch(`/api/tasks/${task.id}`, {
+        method: "DELETE",
+        });
+      if (response.status === 204) {
+        elem.remove();
+        } else {
+        const task3 = await response.json();
+        alert(`${response.status}: ${task3.message}`);
+        }
+    });
+  
   // TODO: elem 内に toggle, label, destroy を追加しなさい
+  elem.appendChild(toggle);
+  elem.appendChild(label);
+  elem.appendChild(destroy);
   list.prepend(elem);
 }
+//getTaskHandlerの使い道は?
