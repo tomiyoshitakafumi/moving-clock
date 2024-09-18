@@ -31,6 +31,7 @@ document.getElementById("image").addEventListener("change", (event) => {
     worker.postMessage({ imageData, width: img.width, height: img.height });
 
     worker.addEventListener("message", (e) => {
+      console.log(e.data);
       const { outputData, width, height } = e.data;
       const outputImageData = new ImageData(outputData, width, height);
       filteredCtx.putImageData(outputImageData, 0, 0);

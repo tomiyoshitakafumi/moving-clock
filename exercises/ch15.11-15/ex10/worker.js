@@ -1,4 +1,3 @@
-// worker.js
 self.addEventListener("message", (event) => {
   const { imageData, width, height } = event.data;
   const data = imageData.data;
@@ -24,11 +23,11 @@ self.addEventListener("message", (event) => {
     [1, 4, 6, 4, 1],
   ];
 
-  for(let row = 0; row < img.height; row++) {
+  for(let row = 0; row < height; row++) {
     //iは始まりの画像のピクセルの位置を示す
-    let i = row * img.width * 4;
+    let i = row * width * 4;
     // 格納されている。ピクセルごとに4つの連続するバイトで RGBA順に格納される。
-    for(let col = 1; col < img.width-1; col++,i += 4) {
+    for(let col = 1; col < width-1; col++,i += 4) {
       let r = 0;
       let g = 0;
       let b = 0;
@@ -37,7 +36,7 @@ self.addEventListener("message", (event) => {
         for (let kc = 0; kc < 5; kc++) {
           let k = kernel[kr][kc];
           //カーネルの中心からどのくらいずれているか
-          let c = i + (kr - 2) * img.width * 4 + (kc - 2) * 4;
+          let c = i + (kr - 2) * width * 4 + (kc - 2) * 4;
           r += data[c] * k;
           g += data[c + 1] * k;
           b += data[c + 2] * k;
