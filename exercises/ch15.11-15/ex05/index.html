@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <title>Simple ToDo</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <!--    playwrightが動かなかった-->
+    <!--    Error: browserType.launch: Target page, context or browser has been closed-->
+    <!--    Browser logs:-->
+    <!--    <launching> C:\Users\r00527841\AppData\Local\ms-playwright\chromium-1124\chrome-win\chrome.exe &#45;&#45;disable-field-trial-config &#45;&#45;disable-background-networking-->
+    <!--    会社環境PCだとwindows環境だとplayright動かない?-->
+    <script src="/ch15.11-15/ex05/index.js" type="module"></script>
+  </head>
+  <body>
+    <form id="new-todo-form">
+      <input type="text" id="new-todo" placeholder="What needs to be done?" />
+      <button type="submit">Add</button>
+    </form>
+    <ul id="todo-list"></ul>
+  </body>
+</html>
