@@ -15,10 +15,10 @@ worker.addEventListener("message", (event) => {
     ctx.stroke();
 });
 
-const depth = 4; // 再帰の深さ
+const depth = 9; // 再帰の深さ
 const size = 500;
-const height = size * Math.sqrt(3) / 2;
-const angle = Math.PI / 3; // 60度をラジアンに変換
+const height = size * Math.sqrt(3) / 2;a
+const angle = Math.PI / 3; 
 
 // 座標を回転させる関数
 function rotate(x, y, angle) {
