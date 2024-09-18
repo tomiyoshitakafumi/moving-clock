@@ -21,6 +21,7 @@ let paused = true;
 
 wss.on("connection", (ws) => {
   // 接続されたクライアントに初期のグリッドを送信
+  // console.log("connection", { type: "update", grid });
   ws.send(JSON.stringify({ type: "update", grid }));
 
   ws.on("message", (message) => {
@@ -30,6 +31,7 @@ wss.on("connection", (ws) => {
         grid[data.row][data.col] = !grid[data.row][data.col];
         wss.clients.forEach((client) => {
           if (client.readyState === WebSocket.OPEN) {
+            console.log("toggle", { type: "update", grid });
             client.send(JSON.stringify({ type: "update", grid }));
           }
         });
@@ -38,6 +40,7 @@ wss.on("connection", (ws) => {
         paused = true;
         wss.clients.forEach((client) => {
           if (client.readyState === WebSocket.OPEN) {
+            console.log("pause", { type: "pause" });
             client.send(JSON.stringify({ type: "pause" }));
           }
         });
@@ -46,6 +49,7 @@ wss.on("connection", (ws) => {
         paused = false;
         wss.clients.forEach((client) => {
           if (client.readyState === WebSocket.OPEN) {
+            console.log("start", { type: "pause" });
             client.send(JSON.stringify({ type: "start" }));
           }
         });
@@ -58,14 +62,49 @@ wss.on("connection", (ws) => {
 function updateGrid(grid) {
   // 新しいグリッドを作成
   const nextGrid = grid.map((arr) => [...arr]);
+
   for (let row = 0; row < ROWS; row++) {
     for (let col = 0; col < COLS; col++) {
-      // 周囲のセルの生存数を数えて nextGrid[row][col] に true or false を設定する
-      //（15.04-10.10の実装を利用）
+      // 周囲のセルの生存数を数えて nextGrid[row][col] に true or false を設定する (実装してね)
+      let count = 0;
+      for (let i = -1; i <= 1; i++) {
+        for (let j = -1; j <= 1; j++) {
+          // 自分自身はカウントしない
+          if (i === 0 && j === 0) {
+            continue;
+          }
+          let newRow = row + i;
+          let newCol = col + j;
+          // 範囲外の場合はスキップ
+          if (newRow < 0 || ROWS <= newRow || newCol < 0 || COLS <= newCol) {
+            continue;
+          }
+          if (grid[newRow][newCol]) {
+            count++;
+          }
+        }
+      }
+      //誕生
+      if (!grid[row][col] && count === 3) {
+        nextGrid[row][col] = true;
+      }
+      //生存
+      else if (grid[row][col] && (count === 2 || count === 3)) {
+        nextGrid[row][col] = true;
+      }
+      //過疎
+      else if (grid[row][col] && count <= 1) {
+        nextGrid[row][col] = false;
+      }
+      //過密  
+      else if (grid[row][col] && count >= 4) {
+        nextGrid[row][col] = false;
+      }
     }
   }
   return nextGrid;
 }
+
 
 // 全クライアントにグリッドの状態をブロードキャストする
 function broadcast(grid) {

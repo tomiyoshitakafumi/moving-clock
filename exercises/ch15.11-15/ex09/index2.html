@@ -1,0 +1,49 @@
+<html lang="ja">
+  <head>
+    <title>Life Game</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <script type="module" src="/ch15.04-10/ex10/index.js"></script>
+    <style>
+      canvas {
+        border: 1px solid black;
+        display: block;
+        margin-bottom: 10px;
+      }
+      button {
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="screen"></canvas>
+    <button id="start">Start</button>
+    <button id="pause">Pause</button>
+  </body>
+</html>
+
+<!doctype html>
+<script>
+  (function main() {
+    const url = 'ws://localhost:3003'
+    let socket = new WebSocket(url);
+    socket.onclose = (event) => {
+      console.log(`WebSocket closed with code: ${event.code}, reason: ${event.reason}`);
+    };
+    socket.onerror = (error) => {
+      console.log('WebSocket error:', error);
+    };
+    try {
+      console.log("receive");
+      socket.onmessage = function (event) {
+        console.log(event.data);
+        let message = JSON.parse(event.data);
+        message.body = "Hello"+message.body;
+        socket.send(JSON.stringify(message));
+      };
+      console.log("send");
+    }catch (error) {
+      console.log(error);
+    }
+  }());
+</script>
