@@ -1,4 +1,6 @@
 <!doctype html>
+<!--index.html 1と2を立ち上げて両方受信待機　送信したい方を更新すれば受信側に送信できる-->
+<!--& client != wsで同じclientに送らないようになっている-->
 <script>
     (async function main() {
         const url = 'ws://localhost:3003'
@@ -10,14 +12,15 @@
             console.log('WebSocket error:', error);
         };
         try {
-            // worldと送ってhelloが帰ってくる
-            console.log('send World');
-            const response = await sendRequest("World");
-            console.log("response"+ response);
+            // helloと送ってworldが帰ってくる
+            console.log("send Hello");
+            //送信と受信
+            const response = await sendRequest("Hello");
+            console.log("response:"+ response);
         }catch (error) {
             console.log(error);
         }
-
+        
         function sendRequest(message) {
             return new Promise((resolve, reject) => {
                 const timeout = 10000000;
@@ -39,4 +42,4 @@
             });
         }
     }());
-</script>
+    </script>

@@ -1,0 +1,75 @@
+<!doctype html>
+<form name="publish">
+    <input type="text" name="message" maxlength="50"/>
+    <div id="0"></div>
+    <input type="text" name="message" maxlength="50"/>
+    <div id="1"></div>
+    <input type="submit" value="Send"/>
+</form>
+
+<script>
+    (async function main() {
+        const url = 'ws://localhost:3003'
+        let socket = new WebSocket(url);
+        socket.onclose = (event) => {
+            console.log(`WebSocket closed with code: ${event.code}, reason: ${event.reason}`);
+        };
+        socket.onerror = (error) => {
+            console.log('WebSocket error:', error);
+        };
+        socket.onopen = () => {
+
+            try {
+                document.forms.publish.onsubmit = async function (event) {
+
+                    event.preventDefault();
+                    const messages = this.message;
+                    const promises = [];
+                    for (let i = 0; i < messages.length; i++) {
+                        let outgoingMessage = messages[i].value;
+                        promises.push(sendRequest(JSON.stringify({id: i, body: outgoingMessage})));
+                    }
+                    // Promise allで全てのメッセージを一度に送信する
+                    let response = await Promise.allSettled(promises);
+                    if (response[0].status === 'rejected') {
+                        showMessage(response[0].reason, '0');
+                    }
+                    if (response[1].status === 'rejected') {
+                        showMessage(response[1].reason, '1');
+                    }
+                    console.log("send" + response);
+                    return false;
+                };
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        function sendRequest(message) {
+            return new Promise((resolve, reject) => {
+                const timeout = 100000;
+                console.log("send" + message);
+                socket.send(message);
+                console.log('Connected');
+                setTimeout(() => {
+                    reject(new Error('Request timed out'));
+                }, timeout);
+
+                socket.onclose = event => {
+                    reject(new Error('close'));
+                    console.log(`Closed ${event.code}`);
+                }
+                socket.onmessage = function (event) {
+
+                    resolve(event.data);
+                };
+            });
+        }
+    }());
+
+    function showMessage(message, id) {
+        let messageElem = document.createElement('div');
+        messageElem.textContent = message;
+        document.getElementById(id).prepend(messageElem);
+    }
+</script>

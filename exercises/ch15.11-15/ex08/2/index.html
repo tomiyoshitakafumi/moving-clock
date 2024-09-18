@@ -1,0 +1,26 @@
+<!doctype html>
+<script>
+    (function main() {
+        const url = 'ws://localhost:3003'
+        let socket = new WebSocket(url);
+        socket.onclose = (event) => {
+            console.log(`WebSocket closed with code: ${event.code}, reason: ${event.reason}`);
+        };
+        socket.onerror = (error) => {
+            console.log('WebSocket error:', error);
+        };
+        try {
+            console.log("receive");
+            socket.onmessage = function (event) {
+                console.log(event.data);
+                let message = JSON.parse(event.data);
+                // Helloをここで追加
+                message.body = "Hello"+message.body;
+                socket.send(JSON.stringify(message));
+            };
+            console.log("send");
+        }catch (error) {
+            console.log(error);
+        }
+    }());
+    </script>
