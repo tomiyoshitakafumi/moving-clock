@@ -1,0 +1,42 @@
+<!doctype html>
+<script>
+    (async function main() {
+        const url = 'ws://localhost:3003'
+        let socket = new WebSocket(url);
+        socket.onclose = (event) => {
+            console.log(`WebSocket closed with code: ${event.code}, reason: ${event.reason}`);
+        };
+        socket.onerror = (error) => {
+            console.log('WebSocket error:', error);
+        };
+        try {
+            // worldと送ってhelloが帰ってくる
+            console.log('send World');
+            const response = await sendRequest("World");
+            console.log("response"+ response);
+        }catch (error) {
+            console.log(error);
+        }
+
+        function sendRequest(message) {
+            return new Promise((resolve, reject) => {
+                const timeout = 10000000;
+                socket.onopen = () => {
+                    socket.send(message);
+                    console.log('Connected');
+                };
+                setTimeout(() => {
+                    reject(new Error('Request timed out'));
+                }, timeout);
+
+                socket.onclose = event => {
+                    reject(new Error('close'));
+                    console.log(`Closed ${event.code}`);
+                }
+                socket.onmessage = function (event) {
+                    resolve(event.data);
+                };
+            });
+        }
+    }());
+</script>
