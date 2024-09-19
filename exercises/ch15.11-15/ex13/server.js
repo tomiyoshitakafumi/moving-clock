@@ -46,7 +46,7 @@ function cspMiddleware(_url, req, res) {
   // TODO: CSP ヘッダを設定する
   // 'unsafe-inline'でインラインスクリプトを許可(RICOH)
   // script-srcに 'self'を記載しないことで同一オリジンからのスクリプトのみを許可せずに特定のスクリプトを許可する
-  res.setHeader("Content-Security-Policy", "script-src  'unsafe-inline' http://localhost:3000/hello.js");
+  res.setHeader("Content-Security-Policy", "script-src  'unsafe-inline' http://localhost:3000 http://localhost:11434");
   return true;
 }
 
