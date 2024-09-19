@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 form.addEventListener("submit", async (e) => {
   // TODO: ここで form のイベントのキャンセルを実施しなさい (なぜでしょう？)
+  console.log("start"+document.cookie);
   e.preventDefault(); // デフォルトでページがリロードされてしまうのでイベント本来の動作を止める
 
   // 両端からホワイトスペースを取り除いた文字列を取得する
