@@ -31,3 +31,88 @@ async function startChild() {
 }
 
 // TODO: ここに処理を書く
+
+//シグナル2つを受け取る
+//SIGINT: Ctrl+C
+process.on("SIGINT", handleSignal);
+// echo $$でプロセスIDを取得してkill -3 プロセスIDでSIGTERMを送信しようとしたがうまくキルができなかった
+process.on("SIGTERM", handleSignal);
+
+startAndMonitorChild().catch((err) => {
+  console.error("Error function:", err);
+  process.exit(1);
+});
+
+async function startAndMonitorChild(){
+  let [exitCode, exitSignal] = await startChild();
+  //exitCodeが1の場合は異常終了それ以外の場合は再起動
+  console.log(exitCode, exitSignal);
+  if (exitCode === 1) {
+    console.log("Child process exited abnormally, restarting...");
+    await startAndMonitorChild();
+  }
+};
+
+function handleSignal(signal){
+  console.log(`Received signal ${signal}, forwarding to child process...`);
+  if (child) {
+    child.kill(signal);
+  }
+  // 0は正常終了
+  process.exit(0);
+};
+
+
+// async function main() {
+//   let childProcess;
+//   let exitCode, exitSignal;
+
+//   const startAndMonitorChild = async () => {
+//     [exitCode, exitSignal] = await startChild();
+//     //exitCodeが1の場合は正常終了それ以外の場合は再起動exitSignalがnullの場合は
+//     if (exitCode !== 1) {
+//       console.log("Child process exited abnormally, restarting...");
+//       await startAndMonitorChild();
+//     }
+//   };
+
+//   const handleSignal = (signal) => {
+//     console.log(`Received signal ${signal}, forwarding to child process...`);
+//     if (childProcess) {
+//       childProcess.kill(signal);
+//     }
+//     process.exit(0);
+//   };
+
+//   process.on("SIGINT", handleSignal);
+//   // 割り込みキーのCtrl+Cと同等かも
+//   process.on("SIGTERM", handleSignal);
+
+//   await startAndMonitorChild();
+// }
+
+// main().catch((err) => {
+//   console.error("Error in main function:", err);
+//   process.exit(1);
+// });
+
+
+
+// function handleSignal(signal) {
+//   console.log(`Received ${signal}, forwarding to child process...`);
+//   if (child) {
+//     child.kill(signal);
+//     child.on("close", (code, signal) => {
+//       console.log(`Child process terminated due to receipt of signal ${signal}`);
+//       process.exit(0);
+//     });
+//   } else {
+//     process.exit(0);
+//   }
+// }
+
+// process.on("SIGTERM", () => handleSignal("SIGTERM"));
+// process.on("SIGINT", () => handleSignal("SIGINT"));
+
+
+// startChild();
