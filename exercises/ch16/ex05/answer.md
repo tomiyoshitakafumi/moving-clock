@@ -25,5 +25,3 @@ node cat.mjs invalid-file > output.txt
 結果　エラー
 node cat.mjs invalid-file 2> error.txt
 予想 エラー
-
-(process.argv.length > 2ではなく >=2を試したかった?)
