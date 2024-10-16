@@ -98,6 +98,18 @@ function serve(rootDirectory, port) {
                 response.writeHead(404);
                 response.end(err.message);
             });
+            // let stream = fs.createReadStream(filename);
+            // fs.readFile(filename, (err, data) => {
+            //     // エラーが発生した場合は、404 Not Foundを返す。
+            //     if (err) {
+            //         response.writeHead(404, { "Content-Type": "text/plain" });
+            //         response.end("Not Found");
+            //         return;
+            //     }
+            //     // ファイルの内容をレスポンスする。
+            //     response.writeHead(200, { "Content-Type": type });
+            //     response.end(data);
+            // });
         }
     });
 }
@@ -107,3 +119,6 @@ serve(process.argv[2] || "/tmp", parseInt(process.argv[3]) || 8000);
 
 //node ch16/ex10/index.js ch16/ex10/replace.html 8000 で取得(なぜか文字化け)
 //node ch16/ex10/client.jsでアップロード source.htmlをreplace.htmlにアップロード
+
+// また大きな file.txt に対し fs.createReadStream を利用した場合と fs.read を利用した場合でメモリ使用量がどれだけ違うか確認しなさい。
+// 10GBでやってみたがそこまで差は分からず....若干fs.createReadStreamの方がメモリ使用量が少ないかもしれない

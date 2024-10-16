@@ -46,6 +46,7 @@ async function runcmd(cmd, stdin = null, stdout = null) {
       await new Promise((resolve, reject) => {
         // stdin, stdout が指定されている場合はパイプを作成する
         const child = spawn(cmd.argv[0], cmd.argv.slice(1), {
+          // stdio?標準入力、標準出力、標準エラーの設定?
           stdio: [
             stdin ? "pipe" : "inherit",
             stdout ? "pipe" : "inherit",
@@ -69,6 +70,9 @@ async function runcmd(cmd, stdin = null, stdout = null) {
       {
         // FIXME: ここを実装してね (2行程度)
         // HINT: cmd.file のストリームを createWriteStream で作成し runcmd を再帰的に呼び出す
+        const outStream = fs.createWriteStream(cmd.file);
+        await runcmd(cmd.cmd, stdin, outStream);
+
       }
       break;
 
@@ -76,6 +80,8 @@ async function runcmd(cmd, stdin = null, stdout = null) {
       {
         // FIXME: ここを実装してね (2行程度)
         // HINT: cmd.file のストリームを createReadStream で作成し runcmd を再帰的に呼び出す
+        const inStream = fs.createReadStream(cmd.file);
+        await runcmd(cmd.cmd, inStream, stdout);
       }
       break;
 
@@ -84,6 +90,13 @@ async function runcmd(cmd, stdin = null, stdout = null) {
         // FIXME: ここを実装してね (4行程度)
         // HINT: cmd.left と cmd.right に対して runcmd を再帰的に呼び出し Promise.all で待つ
         // HINT: left と right を繋ぐには new PassThrought() で作成したストリームを使用する
+
+        // cmd.leftのコマンドが実行され、その出力がpassThroughに書き込まれそのままcmd.rightの標準入力渡している。
+        const passThrough = new PassThrough();
+        await Promise.all([
+          runcmd(cmd.left, stdin, passThrough),
+          runcmd(cmd.right, passThrough, stdout),
+        ]);
       }
       break;
 
