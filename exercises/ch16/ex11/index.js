@@ -1,3 +1,7 @@
+// 1万回して成功→その次に5万回そうとしたら2331回目で失敗
+// C10K問題に近しい1万台と大量のアクセスにより処理のボトルネックになっている?
+
+
 import net from 'net';
 const server = net.createServer((socket) => {
   socket.on('data', (data) => {
