@@ -1,9 +1,13 @@
 import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
+  // webServer: {
+  //   command: "npm run server",
+  //   port: 3000,
+  // },
   webServer: {
-    command: "npm run server",
-    port: 3000,
+    command: "node ch16/ex11/index.js",
+    port: 8000,
   },
   use: {
     headless: false,
