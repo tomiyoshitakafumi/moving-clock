@@ -37,6 +37,14 @@ async function startChild() {
 process.on("SIGINT", handleSignal);
 // echo $$でプロセスIDを取得してkill -3 プロセスIDでSIGTERMを送信しようとしたがうまくキルができなかった
 process.on("SIGTERM", handleSignal);
+// process.on(signal,async () => {
+//   console.log(`Received signal ${signal}, forwarding to child process...`);
+//   if (child) {
+//     child.kill(signal);
+//   }
+//   // 0は正常終了
+//   process.exit(0);
+// }
 
 startAndMonitorChild().catch((err) => {
   console.error("Error function:", err);

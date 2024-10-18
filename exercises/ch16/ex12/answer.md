@@ -6,3 +6,5 @@ nodeはシングルスレッドでイベントベースで並行処理をして�
 
 [参考1](https://knowledge.sakura.ad.jp/24148/)
 [参考2](https://blog.ojisan.io/c10k-wakaran/)
+
+apachは1つのプロセスに対しクライアントが1つ。プロセスが枯渇するのが問題　そのためnodeがよい?

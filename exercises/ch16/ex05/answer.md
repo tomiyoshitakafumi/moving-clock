@@ -25,3 +25,4 @@ node cat.mjs invalid-file > output.txt
 結果　エラー
 node cat.mjs invalid-file 2> error.txt
 予想 エラー
+結果 エラーが出力された

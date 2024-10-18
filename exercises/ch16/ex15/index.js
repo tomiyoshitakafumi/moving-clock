@@ -41,12 +41,11 @@ if (threads.isMainThread) {
             console.log(num);
         }
     });
-
+    worker.postMessage("start");
     worker.on("online", () => {
         for (let i = 0; i < 10_000_000; i++) {
             num++; 
         }
-        worker.postMessage("start");
     });
 } else {
     threads.parentPort.on("message", (message) => {

@@ -72,7 +72,6 @@ async function runcmd(cmd, stdin = null, stdout = null) {
         // HINT: cmd.file のストリームを createWriteStream で作成し runcmd を再帰的に呼び出す
         const outStream = fs.createWriteStream(cmd.file);
         await runcmd(cmd.cmd, stdin, outStream);
-
       }
       break;
 
