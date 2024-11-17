@@ -1,0 +1,20 @@
+{
+  "name": "ex01",
+  "version": "1.0.0",
+  "main": "format_sample.js",
+  "scripts": {
+    "lint": "eslint lint_sample.js",
+    "format": "prettier --write format_sample.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "prettier": "^3.3.3"
+  },
+  "devDependencies": {
+    "eslint": "^9.15.0",
+    "eslint-plugin-react": "^7.37.2",
+    "globals": "^15.12.0"
+  }
+}
