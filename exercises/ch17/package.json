@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "format_sample.js",
   "scripts": {
-    "lint": "eslint lint_sample.js",
-    "format": "prettier --write format_sample.js"
+    "lint": "eslint ./ex01/lint_sample.js",
+    "format": "prettier --write ./ex01/format_sample.js"
   },
   "author": "",
   "license": "ISC",

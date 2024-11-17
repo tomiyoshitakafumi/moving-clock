@@ -4,7 +4,7 @@ import googleConfig from "eslint-config-google";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
-  {files: ["**/*.{js,mjs,cjs,jsx}"]},
+  { files: ["**/*.{js,mjs,cjs,jsx}", "!format_sample.js"]},
   {languageOptions: { globals: globals.browser }},
   pluginReact.configs.flat.recommended,
   {
