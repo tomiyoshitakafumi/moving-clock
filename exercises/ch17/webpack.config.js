@@ -17,5 +17,7 @@ export default {
         path: path.resolve(__dirname, 'ex05/dist'),
         clean: true,
     },
-    mode: 'development'
+    mode: 'development',
+    // ソースマップを出力する
+    devtool: 'source-map'
 };
