@@ -1,59 +1,76 @@
 // webpack + bableの設定をしなくても create-react-appで
 
 
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+//冪等を保証したいので、React.StrictModeを使う
 root.render(
   <React.StrictMode>
+    <App />
   </React.StrictMode>
 );
 
-const form = document.querySelector("#new-todo-form");
-const list = document.querySelector("#todo-list");
-const input = document.querySelector("#new-todo");
+function App() {
+  // useStateで状態を管理 set使うことで再レンダリング
+  const [todos, setTodos] = useState([]);
+  const [inputValue, setInputValue] = useState('');
 
-form.addEventListener("submit", (e) => {
-  // TODO: ここで form のイベントのキャンセルを実施しなさい (なぜでしょう？)
-  e.preventDefault(); // デフォルトでページがリロードされてしまうのでイベント本来の動作を止める
-
-  // 両端からホワイトスペースを取り除いた文字列を取得する
-  if (input.value.trim() === "") {
-    return;
-  }
-  const todo = input.value.trim();
-  // new-todo の中身は空にする
-  input.value = "";
-
-  // ここから #todo-list に追加する要素を構築する
-  const elem = document.createElement("li");
-
-  const label = document.createElement("label");
-  label.textContent = todo;
-  label.style.textDecorationLine = "none";
-
-  const toggle = document.createElement("input");
-  // TODO: toggle が変化 (change) した際に label.style.textDecorationLine を変更しなさい
-  toggle.type = "checkbox";
-  toggle.addEventListener("change", () => {
-    if (toggle.checked) {
-      // チェックされたら取り消し線を引く
-      label.style.textDecorationLine = "line-through";
-    } else {
-      // チェックが外れたら取り消し線を消す
-      label.style.textDecorationLine = "none";
+  function handleSubmit(e) {
+    e.preventDefault();
+    //空の時は登録しない
+    if (inputValue.trim() === '') {
+      return;
     }
-  });
-  const destroy = document.createElement("button");
-  // TODO: destroy がクリック (click) された場合に elem を削除しなさい
-  destroy.textContent = "❌";
-  destroy.addEventListener("click", () => elem.remove());
+    //新しいtodoを追加
+    setTodos([...todos, { text: inputValue.trim(), completed: false }]);
+    //送信後はinputを空にする
+    setInputValue('');
+  };
+  //入力値を取得
+  function handleInput(e) {
+    setInputValue(e.target.value);
+  }
 
-  // elem に toggle, label, destroy を追加
-  elem.appendChild(toggle);
-  elem.appendChild(label);
-  elem.appendChild(destroy)
-  // TODO: elem 内に toggle, label, destroy を追加しなさい
-  list.prepend(elem);
-});
+  function createTodoElement(todos) {
+    // todosの数だけli要素を作成
+    return todos.map((todo, index) => (
+      <li key={index}>
+        <input type="checkbox" checked={todo.completed} onChange={() => handleToggle(index)}/>
+        <label style={{ textDecoration: todo.completed ? 'line-through' : 'none' }}>{todo.text}</label>
+        <button onClick={() => handleDelete(index)}>❌</button>
+      </li>
+    ));
+  }
+  function handleToggle(index) {
+    // 配列を直接変更すると検知できないので新しく生成
+    const newTodos = [...todos];
+    //チェックボックス押された物だけ取り消し線フラグを変更
+    newTodos[index].completed = !newTodos[index].completed;
+    setTodos(newTodos);
+  };
+
+  function handleDelete(index) {
+    const newTodos = todos.filter((_, i) => i !== index);
+    setTodos(newTodos);
+  };
+
+  return (
+    <html lang="ja">
+      <head>
+        <title>Simple ToDo</title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+      </head>
+      <body>
+        <form id="new-todo-form" onSubmit={handleSubmit}>
+          {/* valueを入力しないと初期化されない */}
+          <input type="text" id="new-todo" placeholder="What needs to be done?" onChange={handleInput} value={inputValue} />
+          <button type="submit">Add</button>
+        </form>
+        {createTodoElement(todos)}
+      </body>
+    </html>
+  );
+}
