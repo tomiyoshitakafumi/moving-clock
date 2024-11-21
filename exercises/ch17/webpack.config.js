@@ -5,7 +5,7 @@ const __dirname = path.dirname(__filename);
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default {
-    entry: './ex05/index.js',
+    entry: './ex09/dist/caller.js',
     //htmlが出力されるがうまく表示されない
     plugins: [
         new HtmlWebpackPlugin({
@@ -14,7 +14,7 @@ export default {
     ],
     output: {
         filename: 'bundle.js',
-        path: path.resolve(__dirname, 'ex05/dist'),
+        path: path.resolve(__dirname, 'ex09/webpack'),
         clean: true,
     },
     mode: 'development',

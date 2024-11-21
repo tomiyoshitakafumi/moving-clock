@@ -5,26 +5,25 @@
 //  - PriorityTask: Taskかつ{ priority: Priority }を持つ型
 
 //check
-// node caller.js
-// @flow 
-interface User {
-  id: number;
-  name: string;
-}
+//       
+                
+             
+               
+ 
 
-interface Task {
-  title: string;
-  completed: boolean;
-  user: User;
-}
+                
+                
+                     
+             
+ 
 
-type Priority = "low" | "middle" | "high";
+                                          
 
-export type PriorityTask = Task & { priority: Priority };
+                                                         
 
 
 // Userオブジェクトであることを判定する
-function isUserObject(obj: any): boolean {
+function isUserObject(obj     )          {
   return (
     typeof obj === "object" &&
     typeof obj["id"] === "number" &&
@@ -32,18 +31,18 @@ function isUserObject(obj: any): boolean {
   );
 }
 
-export class TaskManager <T: Task>{
-  _tasks: T[] = [];
+export class TaskManager          {
+  _tasks      = [];
 
   // タスクを追加する
-  add(task :T) {
+  add(task   ) {
     this._tasks.push(task);
   }
 
   // タスクを完了にする
   // Userオブジェクトを指定した場合はそのUserのタスクを全て完了にする
   // 文字列を指定した場合は、そのタイトルのタスクを全て完了にする
-  completeTask(target: User | string) {
+  completeTask(target               ) {
     if (isUserObject(target)) {
       this._tasks
         .filter((t) => t.user === target)
@@ -57,7 +56,7 @@ export class TaskManager <T: Task>{
 
   // 引数の関数にマッチするタスクを返す
   // 引数を省略した場合はすべてのタスクを返す
-  getTasks(predicate?: (task: T) => boolean): T[] {
+  getTasks(predicate                       )      {
     if (predicate === undefined) {
       return this._tasks;
     } else {
@@ -67,11 +66,11 @@ export class TaskManager <T: Task>{
 }
 
 // priority="low"または完了済のタスクを判定する
-export function isLowOrCompletedTask(priorityTask: PriorityTask): boolean {
+export function isLowOrCompletedTask(priorityTask              )          {
   return priorityTask.priority === "low" || priorityTask.completed;
 }
 
 // 判定関数の否定結果を返す関数を生成する
-export function not(f: (arg: PriorityTask) => boolean): (arg: PriorityTask) => boolean {
+export function not(f                                )                                 {
   return (arg) => !f(arg);
 }
