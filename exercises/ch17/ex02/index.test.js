@@ -10,7 +10,7 @@ describe('GitHubAPIをモックする', () => {
     });
 
     test('createIssue', async () => {
-        const mockResponse = { id: 1, title: 'Test Issue' };
+        const mockResponse = { state: 'create' };
         //jest.fn().mockImplementation(() => Promise.resolve(value));の糖衣構文
         fetch.mockResolvedValue({
             ok: true,
@@ -28,6 +28,7 @@ describe('GitHubAPIをモックする', () => {
 
         const result = await createIssue(options);
         expect(result).toEqual(mockResponse);
+        //モック関数の引数がGitHubAPIの指定された引数と一致するかどうか
         expect(fetch).toHaveBeenCalledWith(
             'https://api.github.com/repos/test-user/test-repo/issues',
             expect.objectContaining({
@@ -41,7 +42,7 @@ describe('GitHubAPIをモックする', () => {
     });
 
     test('closeIssue', async () => {
-        const mockResponse = { id: 1, state: 'closed' };
+        const mockResponse = { state: 'closed' };
         fetch.mockResolvedValue({
             ok: true,
             json: async () => mockResponse,
@@ -57,10 +58,20 @@ describe('GitHubAPIをモックする', () => {
 
         const result = await closeIssue(options);
         expect(result).toEqual(mockResponse);
+        expect(fetch).toHaveBeenCalledWith(
+            'https://api.github.com/repos/test-user/test-repo/issues/1',
+            expect.objectContaining({
+                method: 'PATCH',
+                headers: expect.objectContaining({
+                    'Authorization': 'token test-token',
+                }),
+                body: JSON.stringify({ state: 'closed' }),
+            })
+        );
     });
 
     test('listOpenIssues', async () => {
-        const mockResponse = [{ id: 1, title: 'Test Issue' }];
+        const mockResponse = [{ state: 'list' }];
         fetch.mockResolvedValue({
             ok: true,
             json: async () => mockResponse,
@@ -75,5 +86,14 @@ describe('GitHubAPIをモックする', () => {
 
         const result = await listOpenIssues(options);
         expect(result).toEqual(mockResponse);
+        expect(fetch).toHaveBeenCalledWith(
+            'https://api.github.com/repos/test-user/test-repo/issues',
+            expect.objectContaining({
+                method: 'GET',
+                headers: expect.objectContaining({
+                    'Authorization': 'token test-token',
+                }),
+            })
+        );
     });
 });
