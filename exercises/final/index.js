@@ -125,6 +125,19 @@ function animate() {
     posX += velocityX;
     posY += velocityY;
 
+    // 残像を作成
+    if (document.getElementById('view-afterimage').checked) {
+        const clone = textElement.cloneNode(true);
+        clone.style.position = 'absolute';
+        clone.style.transform = `translate(${posX}px, ${posY}px)`;
+        clone.style.opacity = '0.2'; // 残像の透明度を設定
+        document.body.appendChild(clone);
+
+        // 一定時間後に残像を削除
+        setTimeout(() => {
+            clone.remove();
+        }, 150); 
+    }
     textElement.style.transform = `translate(${posX}px, ${posY}px)`;
     requestAnimationFrame(animate);
 }
