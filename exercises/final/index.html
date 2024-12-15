@@ -1,8 +1,43 @@
 <!DOCTYPE html>
 <html lang="jp">
+<meta name="viewport" content="width=device-width" />
 <script type="module" src="index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
 <link rel="stylesheet" href="index.css">
 <body>
     <div class="red-text" id="current-time">
+    </div>
+    <div id="settings" class="settings">
+        <div id="settings-header" class="settings-header">
+        <h2>設定</h2>
+        <label>
+            <input type="checkbox" id="auto-change-color" checked>
+            色が変化
+        </label>
+        <label>
+            <input type="checkbox" id="auto-change-size" checked>
+            サイズが変化
+        </label>
+        <label>
+            <input type="checkbox" id="auto-change-speed" checked>
+            速度が変化
+        </label>
+        <label>
+            <input type="checkbox" id="view-afterimage" checked>
+            残像を表示
+        </label>
+        <label>
+            <input type="checkbox" id="view-second" checked>
+            秒を表示
+        <label>
+            <button id="screenshot">スクリーンショット</button>
+        </label>
+        </div>
+        <div id="screenshot-wiew" class="screenshot-wiew">
+            
+            <button id="share">シェアする</button>
+            <button id="download">ダウンロード</button>
+        </div>
+        <button id="close-settings" class="close">❌</button>
     </div>
 </body>

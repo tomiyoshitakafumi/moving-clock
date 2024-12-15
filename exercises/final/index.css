@@ -10,3 +10,40 @@ html,body {
     background-color: black;
     overflow: hidden;/* スクロールバーを非表示にする */
 }
+h2{
+    color: black;
+    font-size: 30px;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 25px;
+}
+
+.settings {
+    display: none;
+    /* 初期状態では非表示 */
+    position: fixed;
+    width: 30%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    color: black;
+    padding: 20px;
+    border: 1px solid #ccc;
+    z-index: 1000;
+}
+.settings-header{
+    display: none;
+}
+.screenshot-wiew {
+    display: none;
+}
+.close{
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 10px;
+    cursor: pointer;
+}
