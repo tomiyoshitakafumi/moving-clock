@@ -1,0 +1,12 @@
+.red-text {
+    color: red;
+    font-size: 100px;
+    position: absolute;
+}
+html,body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: black;
+    overflow: hidden;/* スクロールバーを非表示にする */
+}
