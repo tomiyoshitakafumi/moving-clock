@@ -2,18 +2,24 @@
     color: red;
     font-size: 100px;
     position: absolute;
+    line-height: 0.9;
 }
-html,body {
+
+html,
+body {
     height: 100%;
     margin: 0;
     padding: 0;
     background-color: black;
-    overflow: hidden;/* スクロールバーを非表示にする */
+    overflow: hidden;
+    /* スクロールバーを非表示にする */
 }
-h2{
+
+h2 {
     color: black;
     font-size: 30px;
 }
+
 label {
     display: block;
     margin-bottom: 10px;
@@ -33,14 +39,18 @@ label {
     padding: 20px;
     border: 1px solid #ccc;
     z-index: 1000;
+    opacity: 0.9;
 }
-.settings-header{
+
+.settings-header {
     display: none;
 }
+
 .screenshot-wiew {
     display: none;
 }
-.close{
+
+.close {
     position: absolute;
     top: 0;
     right: 0;

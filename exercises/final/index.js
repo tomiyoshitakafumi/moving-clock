@@ -62,13 +62,14 @@ document.getElementById('screenshot').addEventListener('click', () => {
         dataUrl = canvas.toDataURL('image/png');
         const img = document.getElementById('screenshot-image');
         img.src = dataUrl;
+       
         img.style.top = '30px';
         img.style.right = '50%';
         img.style.border = '2px solid white';
         img.style.zIndex = '1000';
-        img.style.width = '400px'; 
+        img.style.width = '400px';
         img.style.height = 'auto'; // アスペクト比を維持
-
+        img.style.boxShadow= '0 0 10px rgba(0, 0, 0, 0.5)';
         document.getElementById('settings').style.display = 'block';
         document.getElementById('screenshot-wiew').style.display = 'block';
         document.getElementById('settings-header').style.display = 'none';
@@ -84,8 +85,19 @@ document.getElementById('download').addEventListener('click', () => {
     a.download = 'screenshot.png';
     a.click();
 });
-
-
+//サイズ
+document.getElementById('size-slider').addEventListener('input', (event) => {
+    const size = event.target.value + 'px';
+    const resizableElement = document.getElementById('current-time');
+    resizableElement.style.fontSize = size;
+});
+//スピード
+document.getElementById('size-slider-speed').addEventListener('input', (event) => {
+    const speed = parseInt(event.target.value, 10);
+    velocityX = speed;
+    velocityY = speed;
+    velocityY = speed;
+});
 function updateTime() {
     const now = new Date();
     const timeString = now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
