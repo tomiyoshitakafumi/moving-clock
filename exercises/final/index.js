@@ -1,5 +1,3 @@
-
-
 updateTime();
 setInterval(updateTime, 1000);
 
@@ -100,8 +98,15 @@ document.getElementById('size-slider-speed').addEventListener('input', (event) =
 });
 function updateTime() {
     const now = new Date();
-    const timeString = now.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit' });
-    document.getElementById('current-time').textContent = timeString;
+    const options = { hour: '2-digit', minute: '2-digit' };
+    let timeString = now.toLocaleTimeString('ja-JP', options);
+
+    if (document.getElementById('view-second').checked) {
+        const seconds = now.getSeconds().toString().padStart(2, '0');
+        timeString += `<span class="small-seconds">${seconds}</span>`;
+    }
+
+    document.getElementById('current-time').innerHTML = timeString;
 }
 
 function animate() {

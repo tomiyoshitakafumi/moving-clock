@@ -4,7 +4,12 @@
     position: absolute;
     line-height: 0.9;
 }
-
+.small-seconds {
+    font-size: 0.5em;
+    /* 秒のサイズを小さくする */
+    vertical-align: down;
+    /* 秒を上付きにする */
+}
 html,
 body {
     height: 100%;
