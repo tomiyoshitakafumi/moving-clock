@@ -9,6 +9,7 @@ let velocityY = 2;
 let isAnimating = true;
 let autoChangeColor = true;
 let dataUrl = '';
+let speed = 2;
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -40,6 +41,22 @@ document.addEventListener('keydown', (event) => {
     }
 
 });
+document.getElementById('gear').addEventListener('click', () => {
+    const settings = document.getElementById('settings');
+    const header = document.getElementById('settings-header');
+    const screenshot = document.getElementById('screenshot-wiew');
+    if (settings.style.display === 'none' || settings.style.display === '') {
+        settings.style.display = 'block';
+        header.style.display = 'block';
+        isAnimating = false;
+    } else {
+        settings.style.display = 'none';
+        header.style.display = 'none';
+        screenshot.style.display = 'none';
+        isAnimating = true;
+        animate();
+    }
+});
 
 document.getElementById('close-settings').addEventListener('click', () => {
     document.getElementById('settings').style.display = 'none';
@@ -56,6 +73,7 @@ document.getElementById('auto-change-color').addEventListener('change', (event) 
 document.getElementById('screenshot').addEventListener('click', () => {
     //スクショ取る前に設定をいったん非表示にする
     document.getElementById('settings').style.display = 'none';
+    document.getElementById('gear').style.display = 'none';
     html2canvas(document.body).then(canvas => {
         dataUrl = canvas.toDataURL('image/png');
         const img = document.getElementById('screenshot-image');
@@ -67,10 +85,11 @@ document.getElementById('screenshot').addEventListener('click', () => {
         img.style.zIndex = '1000';
         img.style.width = '400px';
         img.style.height = 'auto'; // アスペクト比を維持
-        img.style.boxShadow= '0 0 10px rgba(0, 0, 0, 0.5)';
+        img.style.boxShadow= '0 0 10px rgba(0, 0, 0, 0.2)';
         document.getElementById('settings').style.display = 'block';
         document.getElementById('screenshot-wiew').style.display = 'block';
         document.getElementById('settings-header').style.display = 'none';
+        document.getElementById('gear').style.display = 'block';
         // Twitterウィジェットを再初期化しないとうまく表示されない
         document.getElementById('twttr').setAttribute('class', 'twitter-share-button');
         twttr.widgets.load();
@@ -91,7 +110,7 @@ document.getElementById('size-slider').addEventListener('input', (event) => {
 });
 //スピード
 document.getElementById('size-slider-speed').addEventListener('input', (event) => {
-    const speed = parseInt(event.target.value, 10);
+    speed = parseInt(event.target.value, 10);
     velocityX = speed;
     velocityY = speed;
     velocityY = speed;
@@ -126,6 +145,11 @@ function animate() {
             textElement.style.color = getRandomColor();
         }
     }
+    // 画面外に出たときに初期位置に戻す(ex:サイズを大きくした時)
+    if (parentRect.right - rect.right < -speed || rect.left < -speed || rect.top < -speed || parentRect.bottom - rect.bottom < -speed) {
+        posX=0;
+        posY=0;
+    }
 
     posX += velocityX;
     posY += velocityY;
@@ -134,10 +158,11 @@ function animate() {
     if (document.getElementById('view-afterimage').checked) {
         const clone = textElement.cloneNode(true);
         clone.style.position = 'absolute';
-        clone.style.transform = `translate(${posX}px, ${posY}px)`;
+        const computedStyle = getComputedStyle(textElement);
+        const fontSize = parseInt(computedStyle.fontSize);
+        clone.style.transform = `translate(${posX}px, ${posY - fontSize/2}px)`;
         clone.style.opacity = '0.2'; // 残像の透明度を設定
         document.body.appendChild(clone);
-
         // 一定時間後に残像を削除
         setTimeout(() => {
             clone.remove();
