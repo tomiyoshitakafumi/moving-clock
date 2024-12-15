@@ -36,7 +36,6 @@ document.addEventListener('keydown', (event) => {
             settings.style.display = 'none';
             header.style.display = 'none';
             screenshot.style.display = 'none';
-            document.getElementsByTagName('img')[0].remove();
             isAnimating = true;
             animate();
         }
@@ -48,7 +47,6 @@ document.getElementById('close-settings').addEventListener('click', () => {
     document.getElementById('settings').style.display = 'none';
     document.getElementById('screenshot-wiew').style.display = 'none';
     document.getElementById('settings-header').style.display = 'none';
-    document.getElementsByTagName('img')[0].remove();
     isAnimating = true;
     animate();
 });
@@ -62,25 +60,21 @@ document.getElementById('screenshot').addEventListener('click', () => {
     document.getElementById('settings').style.display = 'none';
     html2canvas(document.body).then(canvas => {
         dataUrl = canvas.toDataURL('image/png');
-        const img = document.createElement('img');
+        const img = document.getElementById('screenshot-image');
         img.src = dataUrl;
-        img.style.top = '20px';
+        img.style.top = '30px';
         img.style.right = '50%';
         img.style.border = '2px solid white';
         img.style.zIndex = '1000';
-        img.style.width = '200px'; 
+        img.style.width = '400px'; 
         img.style.height = 'auto'; // アスペクト比を維持
 
         document.getElementById('settings').style.display = 'block';
         document.getElementById('screenshot-wiew').style.display = 'block';
         document.getElementById('settings-header').style.display = 'none';
-        const shareElement = document.getElementById('screenshot-wiew');
-        shareElement.appendChild(img);
-        
-    
-
-        // const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(dataUrl)}&text=スクリーンショットを共有します！`;
-        // window.open(twitterUrl, '_blank');
+        // Twitterウィジェットを再初期化しないとうまく表示されない
+        document.getElementById('twttr').setAttribute('class', 'twitter-share-button');
+        twttr.widgets.load();
     });
 });
 
@@ -90,6 +84,7 @@ document.getElementById('download').addEventListener('click', () => {
     a.download = 'screenshot.png';
     a.click();
 });
+
 
 function updateTime() {
     const now = new Date();
