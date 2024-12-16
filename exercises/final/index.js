@@ -1,6 +1,12 @@
 updateTime();
 setInterval(updateTime, 1000);
 
+// ページを開いた時間を記録
+const startTime = new Date();
+// 1秒ごとに経過時間を更新
+let elapsedTimeInterval = setInterval(updateElapsedTime, 1000);
+
+
 const textElement = document.getElementById('current-time');
 let posX = 0;
 let posY = 0;
@@ -24,38 +30,12 @@ animate();
 // 設定画面中はアニメーションを停止する
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') {
-        const settings = document.getElementById('settings');
-        const header = document.getElementById('settings-header');
-        const screenshot = document.getElementById('screenshot-wiew');
-        if (settings.style.display === 'none' || settings.style.display === '') {
-            settings.style.display = 'block';
-            header.style.display = 'block';
-            isAnimating = false;
-        } else {
-            settings.style.display = 'none';
-            header.style.display = 'none';
-            screenshot.style.display = 'none';
-            isAnimating = true;
-            animate();
-        }
+        toggleSettings();
     }
 
 });
 document.getElementById('gear').addEventListener('click', () => {
-    const settings = document.getElementById('settings');
-    const header = document.getElementById('settings-header');
-    const screenshot = document.getElementById('screenshot-wiew');
-    if (settings.style.display === 'none' || settings.style.display === '') {
-        settings.style.display = 'block';
-        header.style.display = 'block';
-        isAnimating = false;
-    } else {
-        settings.style.display = 'none';
-        header.style.display = 'none';
-        screenshot.style.display = 'none';
-        isAnimating = true;
-        animate();
-    }
+    toggleSettings();
 });
 
 document.getElementById('close-settings').addEventListener('click', () => {
@@ -95,6 +75,7 @@ document.getElementById('screenshot').addEventListener('click', () => {
         twttr.widgets.load();
     });
 });
+
 
 document.getElementById('download').addEventListener('click', () => {
     const a = document.createElement('a');
@@ -170,4 +151,33 @@ function animate() {
     }
     textElement.style.transform = `translate(${posX}px, ${posY}px)`;
     requestAnimationFrame(animate);
+}
+
+
+function updateElapsedTime() {
+    const now = new Date();
+    const elapsedTime = Math.floor((now - startTime) / 1000); // 経過時間を秒で計算
+    const hours = Math.floor(elapsedTime / 3600);
+    const minutes = Math.floor((elapsedTime % 3600) / 60);
+    const seconds = elapsedTime % 60;
+    document.getElementById('elapsed-time').innerText = `あなたは${hours}時間${minutes}分${seconds}秒この画面を見ていました！`;
+}
+
+function toggleSettings() {
+    const settings = document.getElementById('settings');
+    const header = document.getElementById('settings-header');
+    const screenshot = document.getElementById('screenshot-wiew');
+    if (settings.style.display === 'none' || settings.style.display === '') {
+        settings.style.display = 'block';
+        header.style.display = 'block';
+        isAnimating = false;
+        clearInterval(elapsedTimeInterval); // 経過時間の更新を停止
+    } else {
+        settings.style.display = 'none';
+        header.style.display = 'none';
+        screenshot.style.display = 'none';
+        isAnimating = true;
+        elapsedTimeInterval = setInterval(updateElapsedTime, 1000); // 経過時間の更新を再開
+        animate();
+    }
 }
