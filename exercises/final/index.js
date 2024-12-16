@@ -16,6 +16,9 @@ let isAnimating = true;
 let autoChangeColor = true;
 let dataUrl = '';
 let speed = 2;
+let nowhours = 0;
+let nowminutes = 0;
+let nowseconds = 0;
 function getRandomColor() {
     const letters = '0123456789ABCDEF';
     let color = '#';
@@ -72,6 +75,9 @@ document.getElementById('screenshot').addEventListener('click', () => {
         document.getElementById('gear').style.display = 'block';
         // Twitterウィジェットを再初期化しないとうまく表示されない
         document.getElementById('twttr').setAttribute('class', 'twitter-share-button');
+        let text = `あなたは動く時計を${nowhours}時間${nowminutes}分${nowseconds}秒見ていました！`;
+        const tweetUrl = `https://twitter.com/share?url=https://aa&text=${text}`;
+        document.getElementById('twttr').setAttribute('href', tweetUrl);
         twttr.widgets.load();
     });
 });
@@ -157,10 +163,10 @@ function animate() {
 function updateElapsedTime() {
     const now = new Date();
     const elapsedTime = Math.floor((now - startTime) / 1000); // 経過時間を秒で計算
-    const hours = Math.floor(elapsedTime / 3600);
-    const minutes = Math.floor((elapsedTime % 3600) / 60);
-    const seconds = elapsedTime % 60;
-    document.getElementById('elapsed-time').innerText = `あなたは${hours}時間${minutes}分${seconds}秒この画面を見ていました！`;
+    nowhours = Math.floor(elapsedTime / 3600);
+    nowminutes = Math.floor((elapsedTime % 3600) / 60);
+    nowseconds = elapsedTime % 60;
+    document.getElementById('elapsed-time').innerText = `あなたは${nowhours}時間${nowminutes}分${nowseconds}秒この画面を見ていました！`;
 }
 
 function toggleSettings() {
