@@ -78,7 +78,6 @@ document.getElementById('screenshot').addEventListener('click', () => {
         let text = `あなたは動く時計を${nowhours}時間${nowminutes}分${nowseconds}秒見ていました！`;
         const tweetUrl = `https://twitter.com/share?url=https://tomiyoshitakafumi.github.io/moving-clock/%0A&text=${text}&hashtags=動く時計`;
         document.getElementById('twttr').setAttribute('href', tweetUrl);
-        document.getElementById('twttr').setAttribute('img src', tweetUrl);
         twttr.widgets.load();
     });
 });
