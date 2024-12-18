@@ -1,1 +1,56 @@
-hello
+<!DOCTYPE html>
+<html lang="jp">
+<title>動く時計</title>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script type="module" src="index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <div class="red-text" id="current-time">
+    </div>
+<button id="gear" class="gear">⚙️</button>
+    <div id="settings" class="settings">
+        <div id="settings-header" class="settings-header">
+            <h2>設定</h2>
+            <label>
+                <input type="checkbox" id="auto-change-color" checked>
+                色が変化
+            </label>
+            <label>
+                サイズ調整: <input type="range" id="size-slider" min="10" max="500" value="100">
+            </label>
+            <label>
+                速度調節: <input type="range" id="size-slider-speed" min="0" max="10" value="2">
+            </label>
+            <label>
+                <input type="checkbox" id="view-afterimage">
+                残像を表示
+            </label>
+            <label>
+                <input type="checkbox" id="view-second">
+                秒を表示
+            <label>
+            <!-- <label>
+                <input type="checkbox" id="view-minute">
+                フォントの変更
+            </label>
+            <label>
+                <input type="checkbox" id="view-minute">
+                ローカルタイム
+            </label> -->
+                <button id="screenshot">スクリーンショット&共有</button>
+            </label>
+        </div>
+        <div id="screenshot-wiew" class="screenshot-wiew">
+            <h3 id="elapsed-time"></h3>
+            <img id="screenshot-image" class="screenshot-image">
+            <a id="twttr" data-show-count="false">twitter</a>
+            <button id="download">ダウンロード</button>
+        </div>
+        <button id="close-settings" class="close">❌</button>
+    </div>
+</body>
