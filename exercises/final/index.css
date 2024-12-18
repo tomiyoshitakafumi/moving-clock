@@ -46,7 +46,7 @@ label {
     padding: 20px;
     border: 1px solid #ccc;
     z-index: 1000;
-    opacity: 0.9;
+    opacity: 0.98;
 }
 
 .settings-header {
@@ -77,5 +77,53 @@ label {
 }
 .gear:hover {
     transform: rotate(180deg);
-    /* ホバー時にアイコンを回転させる */
+}
+.styled-button {
+    background-color: rgb(100, 100, 100);
+    border: 1px solid #ccc;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 12px;
+    transition-duration: 0.4s;
+}
+
+.styled-button:hover {
+    background-color: rgb(150, 150, 150);
+    /* ホバー時の背景色をさらに明るく */
+    color: black;
+    /* ホバー時の文字色を黒に */
+    border: 1px solid #fff;
+    /* ホバー時の枠線を白に */
+}
+
+.styled-button {
+    background-color: rgb(100, 100, 100);
+    border: 1px solid #ccc;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 8px 4px;
+    border-radius: 12px;
+    transition-duration: 0.4s;
+}
+
+.styled-button:hover {
+    background-color: rgb(150, 150, 150);
+    color: black;
+    border: 1px solid #fff;
+}
+
+.screenshot-wiew {
+    display: none;
+    padding: 20px;
+    text-align: center;
 }
