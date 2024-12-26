@@ -2,11 +2,12 @@
 <html lang="jp">
 <title>動く時計</title>
 <head>
-    <meta name="viewport" content="width=device-width" />
     <script type="module" src="index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <link rel="stylesheet" href="index.css">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 
 <body>
@@ -24,7 +25,7 @@
                 サイズ調整: <input type="range" id="size-slider" min="10" max="500" value="100">
             </label>
             <label>
-                速度調節: <input type="range" id="size-slider-speed" min="0" max="10" value="2">
+                速度調節: <input type="range" id="size-slider-speed" min="0" max="100" value="20">
             </label>
             <label>
                 <input type="checkbox" id="view-afterimage">
@@ -53,11 +54,14 @@
         </div>
         <button id="close-settings" class="close">❌</button>
     </div>
+    <div id="orientation-popup" class="orientation-popup">
+        <p>横画面にしてください。</p>
+    </div>
 </body>
 </body>
-<meta property="og:url" content="https://tomiyoshitakafumi.github.io/moving-clock/" />
+<meta property="og:url" content="https://tomiyoshitakafumi.github.io/moveing-clock/" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="動く時計" />
 <meta property="og:description" content="" />
-<meta property="og:image" content="https://tomiyoshitakafumi.github.io/moving-clock/img2.png"/>
+<meta property="og:image" content="https://tomiyoshitakafumi.github.io/moveing-clock/img2.png"/>
 <meta property="og:site_name" content="" />
