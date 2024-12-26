@@ -24,13 +24,13 @@ body {
 
 h2 {
     color: rgb(195, 195, 195);
-    font-size: 30px;
+    font-size: 20px;
 }
 
 label {
     display: block;
     margin-bottom: 10px;
-    font-size: 25px;
+    font-size: 15px;
 }
 
 .settings {
@@ -38,6 +38,7 @@ label {
     /* 初期状態では非表示 */
     position: fixed;
     width: 30%;
+    min-width: 50%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -67,7 +68,7 @@ label {
 }
 
 .gear {
-    font-size: 40px;
+    font-size: 20px;
     background-color: transparent;
     opacity: 0.4;
     cursor: pointer;
@@ -86,7 +87,7 @@ label {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: 10px;
     cursor: pointer;
     border-radius: 12px;
     transition-duration: 0.4s;
@@ -109,7 +110,7 @@ label {
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: 10px;
     cursor: pointer;
     margin: 8px 4px;
     border-radius: 12px;
@@ -126,4 +127,23 @@ label {
     display: none;
     padding: 20px;
     text-align: center;
+}
+
+.orientation-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    z-index: 10000;
+    text-align: center;
+}
+@media screen and (max-width: 500px) {
+    .orientation-popup {
+        display: block;
+    }
 }
